@@ -1,4 +1,4 @@
-package Weekend_Task.Week_34;
+package Weekend_Task.Kap_1_1;
 
 //Hvis den største verdien forekommer flere ganger, vil maks-metoden returnere posisjonen til den første av dem.
 // Hva må endres for at den skal returnere posisjonen til den siste?

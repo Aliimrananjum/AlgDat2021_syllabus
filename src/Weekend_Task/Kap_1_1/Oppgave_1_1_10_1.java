@@ -1,4 +1,4 @@
-package Weekend_Task.Week_34;
+package Weekend_Task.Kap_1_1;
 
 import java.util.Random;
 

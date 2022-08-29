@@ -1,4 +1,4 @@
-package Weekend_Task.Week_34;
+package Weekend_Task.Kap_1_1;
 //Lag en min-metode på samme måte som maks-metoden i Programkode 1.1.2, dvs.
 // en metode som finner (og returnerer) posisjonen til den minste verdien i
 // en tabell.
