@@ -1,4 +1,4 @@
-package Weekend_Task.Kap_1_2;
+package Weekend_Task.Hjelpe_Klasse;
 
 import java.util.Arrays;
 import java.util.NoSuchElementException;
@@ -284,7 +284,7 @@ public class Tabell {
 
     //oppgave 1.2.2 5)
     public static int[] naturligeTall(int n){
-        return Tabell.randPerm(n);
+        return Weekend_Task.Kap_1_2.Tabell.randPerm(n);
     }
 
     //eller i følge fasit. Det er for en vanlig tallrekke
@@ -349,15 +349,15 @@ public class Tabell {
         if (a.length < 2) // må ha minst to verdier!
             throw new IllegalArgumentException("a.length(" + a.length + ") < 2!");
 
-        int m = Tabell.maks(a);  // m er posisjonen til tabellens største verdi
+        int m = Weekend_Task.Kap_1_2.Tabell.maks(a);  // m er posisjonen til tabellens største verdi
 
-        Tabell.bytt(a,0,m);  // bytter om slik at den største kommer forrest
+        Weekend_Task.Kap_1_2.Tabell.bytt(a,0,m);  // bytter om slik at den største kommer forrest
 
-        int k = Tabell.maks(a,1,a.length);
+        int k = Weekend_Task.Kap_1_2.Tabell.maks(a,1,a.length);
 
         if (k == m) k = 0; // den nest største lå opprinnelig forrest
 
-        Tabell.bytt(a,0,m); // bytter tilbake
+        Weekend_Task.Kap_1_2.Tabell.bytt(a,0,m); // bytter tilbake
 
         return new int[] {m,k};
 
@@ -368,24 +368,127 @@ public class Tabell {
         if (a.length < 2) // må ha minst to verdier!
             throw new IllegalArgumentException("a.length(" + a.length + ") < 2!");
 
-        int m = Tabell.maks(a);  // m er posisjonen til tabellens største verdi
+        int m = Weekend_Task.Kap_1_2.Tabell.maks(a);  // m er posisjonen til tabellens største verdi
 
-        Tabell.bytt(a,a.length-1,m);  // bytter om slik at den største kommer bakerst
+        Weekend_Task.Kap_1_2.Tabell.bytt(a,a.length-1,m);  // bytter om slik at den største kommer bakerst
 
-        int k = Tabell.maks(a,0,a.length-1);
+        int k = Weekend_Task.Kap_1_2.Tabell.maks(a,0,a.length-1);
 
         if (k == m) k = a.length - 1; // den nest største lå opprinnelig bakerst
 
-        Tabell.bytt(a,a.length-1,m); // bytter tilbake
+        Weekend_Task.Kap_1_2.Tabell.bytt(a,a.length-1,m); // bytter tilbake
 
         return new int[] {m,k};
 
     } // nestMaks
 
+    //for oppgave 1.3.1 a)
 
+    //Programkode 1.3.1 a)
+    public static void snu(int[] a, int v, int h)  // snur intervallet a[v:h]
+    {
+        while (v < h) bytt(a, v++, h--);
+    }
 
+    public static void snu(int[] a, int v)  // snur fra og med v og ut tabellen
+    {
+        snu(a, v, a.length - 1);
+    }
 
+    public static void snu(int[] a)  // snur hele tabellen
+    {
+        snu(a, 0, a.length - 1);
+    }
+
+    //Programkode 1.3.1 b)
+
+    public static boolean nestePermutasjon(int[] a)
+    {
+        int i = a.length - 2;                    // i starter nest bakerst
+        while (i >= 0 && a[i] > a[i + 1]) i--;   // går mot venstre
+        if (i < 0) return false;                 // a = {n, n-1, . . . , 2, 1}
+
+        int j = a.length - 1;                    // j starter bakerst
+        while (a[j] < a[i]) j--;                 // stopper når a[j] > a[i]
+        bytt(a,i,j); snu(a,i + 1);               // bytter og snur
+
+        return true;                             // en ny permutasjon
+    }
+
+    //Programkode 1.3.4 a)
+    public static void utvalgssortering(int[] a)
+    {
+        for (int i = 0; i < a.length - 1; i++)
+            bytt(a, i, min1(a, i, a.length));  // to hjelpemetoder
+    }
+
+    //oppgave 9) Lag utvalgssortering som sorterer intervallet a[fra:til>
+    public static void utvalgssortering(int [] a,int fra, int til){
+        Tabell.fratilKontroll(a.length,fra,til);
+        for(int i = fra; i < til-1; i++){
+            Tabell.bytt(a,i,Tabell.min1(a,i,til));
+        }
+        Tabell.skriv2(a);
+    }
+
+    //Programkode 1.3.6 a)
+
+    public static int binærsøkV1(int[] a, int fra, int til, int verdi)
+    {
+        Tabell.fratilKontroll(a.length,fra,til);  // se Programkode 1.2.3 a)
+        int v = fra, h = til - 1;  // v og h er intervallets endepunkter
+
+        while (v <= h)    // fortsetter så lenge som a[v:h] ikke er tom
+        {
+            int m = (v + h)/2;      // heltallsdivisjon - finner midten
+            int midtverdi = a[m];   // hjelpevariabel for midtverdien
+
+            if (verdi == midtverdi) return m;          // funnet
+            else if (verdi > midtverdi) v = m + 1;     // verdi i a[m+1:h]
+            else  h = m - 1;                           // verdi i a[v:m-1]
+        }
+
+        return -(v + 1);    // ikke funnet, v er relativt innsettingspunkt
+    }
+
+    public static int binærsøk(int[] a, int verdi)  // søker i hele a
+    {
+        return binærsøkV1(a,0,a.length,verdi);  // bruker metoden over
+    }
+
+    public static int binærsøkV2(int[] a, int fra, int til, int verdi)
+    {
+        Tabell.fratilKontroll(a.length,fra,til);  // se Programkode 1.2.3 a)
+        int v = fra, h = til - 1;    // v og h er intervallets endepunkter
+
+        while (v <= h)  // fortsetter så lenge som a[v:h] ikke er tom
+        {
+            int m = (v + h)/2;     // heltallsdivisjon - finner midten
+            int midtverdi = a[m];  // hjelpevariabel for  midtverdien
+
+            if (verdi > midtverdi) v = m + 1;        // verdi i a[m+1:h]
+            else if (verdi < midtverdi) h = m - 1;   // verdi i a[v:m-1]
+            else return m;                           // funnet
+        }
+
+        return -(v + 1);   // ikke funnet, v er relativt innsettingspunkt
+    }
+
+    public static int binærsøkV3(int[] a, int fra, int til, int verdi)
+    {
+        Tabell.fratilKontroll(a.length,fra,til);  // se Programkode 1.2.3 a)
+        int v = fra, h = til - 1;  // v og h er intervallets endepunkter
+
+        while (v < h)  // obs. må ha v < h her og ikke v <= h
+        {
+            int m = (v + h)/2;  // heltallsdivisjon - finner midten
+
+            if (verdi > a[m]) v = m + 1;   // verdi må ligge i a[m+1:h]
+            else  h = m;                   // verdi må ligge i a[v:m]
+        }
+        if (h < v || verdi < a[v]) return -(v + 1);  // ikke funnet
+        else if (verdi == a[v]) return v;            // funnet
+        else  return -(v + 2);                       // ikke funnet
+    }
 
 }
-
-
