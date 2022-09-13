@@ -18,6 +18,7 @@ public class Oppgave_1_3_8 {
 
         System.arraycopy(a,k,a,k+1,antall-k);
 
+
         a[k] = nyverdi;                                    // legger inn
         antall++;                                          // øker antallet
 
