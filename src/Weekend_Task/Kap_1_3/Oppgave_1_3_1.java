@@ -1,7 +1,7 @@
 package Weekend_Task.Kap_1_3;
-import Weekend_Task.Hjelpe_Klasse.Tabell;
+import Weekend_Task.Hjelpe_Tabeller.Tabell;
 
-import static Weekend_Task.Hjelpe_Klasse.Tabell.bytt;
+import static Weekend_Task.Hjelpe_Tabeller.Tabell.bytt;
 
 public class Oppgave_1_3_1 {
 

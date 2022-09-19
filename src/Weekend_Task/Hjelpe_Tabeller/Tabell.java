@@ -1,4 +1,6 @@
-package Weekend_Task.Hjelpe_Klasse;
+package Weekend_Task.Hjelpe_Tabeller;
+
+import Weekend_Task.Hjelpe_Klasser.Komparator;
 
 import java.util.Arrays;
 import java.util.NoSuchElementException;
@@ -490,5 +492,54 @@ public class Tabell {
         else if (verdi == a[v]) return v;            // funnet
         else  return -(v + 2);                       // ikke funnet
     }
+
+    public static void bytt(Object[] a, int i, int j) // hvorfor bruker vi O
+    {
+        Object temp = a[i];
+        a[i] = a[j];
+        a[j] = temp;
+    }
+
+    public static Integer[] randPermInteger(int n)
+    {
+        Integer[] a = new Integer[n];               // en Integer-tabell
+        Arrays.setAll(a, i -> i + 1);               // tallene fra 1 til n
+
+        Random r = new Random();   // hentes fra  java.util
+
+        for (int k = n - 1; k > 0; k--)
+        {
+            int i = r.nextInt(k+1);  // tilfeldig tall fra [0,k]
+            bytt(a,k,i);             // bytter om
+        }
+        return a;  // tabellen med permutasjonen returneres
+    }
+
+
+    public static <T> int maks(T[] a, Komparator<? super T> c){
+        return maks(a,0,a.length,c);
+    }
+
+    public static <T> int maks(T[] a, int fra, int til, Komparator<? super T> c){
+        Tabell.fratilKontroll(a.length,fra,til);
+
+        if(fra == til){
+            throw new NoSuchElementException("Fra(" + fra + ") = til(" + til + ") - tomt tabell");
+        }
+
+        int mi = fra;
+        T mv = a[fra];
+        for(int i = 1; i < a.length; i++){
+            if(c.compare(a[i],mv) > 0){
+                mv = a[i];
+                mi = i;
+            }
+        }
+
+        return mi;
+    }
+
+
+
 
 }

@@ -1,6 +1,6 @@
 package Weekend_Task.Kap_1_3;
 
-import Weekend_Task.Hjelpe_Klasse.Tabell;
+import Weekend_Task.Hjelpe_Tabeller.Tabell;
 
 public class Oppgave_1_3_6 {
     public static void main(String[] args) {

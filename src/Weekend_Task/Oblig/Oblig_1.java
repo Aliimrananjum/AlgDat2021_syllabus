@@ -1,9 +1,5 @@
 package Weekend_Task.Oblig;
 
-import Weekend_Task.Hjelpe_Klasse.Tabell;
-
-import java.util.Arrays;
-
 public class Oblig_1 {
 /* Oppgave 5
 
