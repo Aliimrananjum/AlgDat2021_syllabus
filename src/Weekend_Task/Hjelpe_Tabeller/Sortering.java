@@ -7,13 +7,6 @@ import java.util.Arrays;
 public class Sortering {
 
     //Kvikksort start
-    public static int midtenAvArray(int [] a){
-        if(a.length < 1){
-            throw new ArrayIndexOutOfBoundsException("Tabellen er tom!");
-        }
-
-        return a.length/2;
-    }
 
     public static int kvikkSortBytt(int [] a, int i, int j){  // retunrerer verdier i siste index
         if(a.length < 1){
@@ -65,7 +58,10 @@ public class Sortering {
     }
 
     public static void kvikksortering(int [] a){
-        kvikksort0(a,0,a.length-1);
+
+        if(a.length > 1){
+            kvikksort0(a,0,a.length-1);
+        }
     }
 
     //KvikkSort Slutt
@@ -93,6 +89,25 @@ public class Sortering {
         }
 
     }
+
+    //kvikksort
+    public static int sPartere0(int[] a, int v, int h, int indeks){
+        Tabell.bytt(a,indeks,h);
+        int pos = sPartere0(a,v,h-1,a[h]);
+        Tabell.bytt(a,pos,h);
+        return pos;
+    }
+
+
+    public static void kvikksortering0(int [] a, int v, int h){
+        if(v >= h){
+            return;
+        }
+        int k = sPartere0(a,v,h,(v+h)/2);
+        kvikksort0(a,v,k-1);
+        kvikksort0(a,k+1,h);
+    }
+    //Nyeste kvikksort ferdig
 
     public static <T extends Comparable<? super T>> void innsettingssortering(T[] a){
         for(int i = 1; i < a.length; i++){
